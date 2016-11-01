@@ -1,0 +1,40 @@
+apply plugin: 'java'
+// enables 'install' task into repository
+apply plugin: 'maven'
+group ='com.researchspace'
+sourceCompatibility = 1.8
+version = '0.0.1-SNAPSHOT'
+def springVersion='4.3.0.RELEASE'
+def jacksonVersion='2.6.7'
+
+repositories {
+    mavenCentral()      
+}
+
+
+dependencies {
+    compile 'org.springframework:spring-web:'+springVersion
+    compile 'org.springframework:spring-core:'+springVersion
+    compile 'com.fasterxml.jackson.core:jackson-annotations:'+jacksonVersion
+    compile 'com.fasterxml.jackson.core:jackson-core:'+jacksonVersion
+    compile 'com.fasterxml.jackson.core:jackson-databind:'+jacksonVersion
+      
+    compile 'org.projectlombok:lombok:1.16.10'
+    compile 'commons-lang:commons-lang:2.6'
+    compile 'org.slf4j:slf4j-api:1.7.21'
+ 
+    testCompile   'junit:junit:4.12'
+    testCompile   'org.springframework:spring-test:'+springVersion
+    testCompile   'org.slf4j:slf4j-simple:1.7.21'
+}
+
+test{
+ testLogging.showStandardStreams = true
+ //delegate command line properties through to Test JVM
+ systemProperties = System.getProperties()
+}
+
+//Lists dependencies
+task listJars << {
+    configurations.compile.each { File file -> println file.name }
+}
