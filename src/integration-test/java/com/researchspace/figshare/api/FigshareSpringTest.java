@@ -14,7 +14,6 @@ import org.springframework.test.context.TestPropertySource;
  *
  */
 @ContextConfiguration(classes={SpringTestConfig.class})
-@TestPropertySource(locations = "classpath:/test.properties")
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
 public @interface FigshareSpringTest {

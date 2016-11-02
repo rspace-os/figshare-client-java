@@ -16,6 +16,5 @@ public class SpringTestConfig {
 	FigshareTemplate FigshareTemplate (){
 		return new FigshareTemplate();
 	}
-
 	
 }
