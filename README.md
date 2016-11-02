@@ -74,6 +74,9 @@ You'll have to set up the FigshareTemplate manually:
 Here is some code which creates a new article, uploads a file, and returns a link to the article on the Figshare website.
 
 ```java
+
+		// get a file from somewhere.
+        File anyFile = new File("Somefile.xls");
         
         // Objects to post are generally created using Builder pattern:
         ArticlePostBuilder articleBuilder = ArticlePost.builder();
@@ -92,7 +95,7 @@ Here is some code which creates a new article, uploads a file, and returns a lin
 		// now let's submit it:
 		Location article = figshare.createArticle(toPost);
 	    PrivateArticleLink privateLink = figshare.createPrivateArticleLink(article.getId());
-	    Location fileId = figshare.uploadFile(article.getId(), toDeposit);
+	    Location fileId = figshare.uploadFile(article.getId(), anyFile);
 		String feedbackMsg = String.format("Deposit succeeded - private article link is %s.", privateLink.getWeblink());
 			
 
