@@ -68,3 +68,32 @@ You'll have to set up the FigshareTemplate manually:
 	  ft.setPersonalToken(token);
 	  return ft;
 ``` 
+
+### Usage
+
+Here is some code which creates a new article, uploads a file, and returns a link to the article on the Figshare website.
+
+```java
+        
+        // Objects to post are generally created using Builder pattern:
+        ArticlePostBuilder articleBuilder = ArticlePost.builder();
+		articleBuilder.title("title")
+		   .description("Some description")
+		   .author(new Author("Fred Bloggs", null))
+		   .author(new Author(null, "x@y.com"));
+		   
+		// you can also iterate over Categories to find the ID matching your category
+		articleBuilder.category(Category.UNCATEGORIZED.getId().intValue());
+		
+		// tag required for publishing to work, if needed.
+		articleBuilder.tags(Arrays.asList(new String []{"from_java"}));
+		ArticlePost toPost = articleBuilder.build();
+		
+		// now let's submit it:
+		Location article = figshare.createArticle(toPost);
+	    PrivateArticleLink privateLink = figshare.createPrivateArticleLink(article.getId());
+	    Location fileId = figshare.uploadFile(article.getId(), toDeposit);
+		String feedbackMsg = String.format("Deposit succeeded - private article link is %s.", privateLink.getWeblink());
+			
+
+```
