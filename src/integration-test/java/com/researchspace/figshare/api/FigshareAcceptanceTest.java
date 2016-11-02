@@ -25,8 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 import com.researchspace.figshare.impl.FigshareTemplate;
@@ -51,12 +49,10 @@ import com.researchspace.figshare.model.PrivateArticleLink;
 public class FigshareAcceptanceTest extends AbstractJUnit4SpringContextTests{
 
 	Logger log = LoggerFactory.getLogger(FigshareAcceptanceTest.class);
-	@Autowired Environment env;
-	private  String accessToken;
+	
 	private Figshare templateProxy;
 	@Autowired
 	private Figshare template;
-	private FigshareTemplate templateImpl;
 	
 	File dataFile = new File ("src/test/resources/ResizablePng.zip");
 	File smallFile = new File ("src/test/resources/bytes.dat");
@@ -79,16 +75,10 @@ public class FigshareAcceptanceTest extends AbstractJUnit4SpringContextTests{
 		}
 	}
 	
-
 	@Before
 	public void setUp() throws Exception {
-		accessToken = env.getProperty("figshareToken");	
-		log.info("Using token [{}]", abbreviate(accessToken, 20));
-		this.templateImpl = (FigshareTemplate)template;
-		templateImpl.setPersonalToken(accessToken);
-		templateImpl.setFileOps(new FileOperationsImpl(templateImpl.getRestTemplate(), accessToken));
 		templateProxy = setUpDelayExecutingProxy();
-		FileUtils.writeByteArrayToFile(smallFile, new byte []{1,2,3,4,5});
+		FileUtils.writeByteArrayToFile(smallFile, new byte[] {1, 2, 3, 4, 5 });
 	}
 
 	private Figshare setUpDelayExecutingProxy() {

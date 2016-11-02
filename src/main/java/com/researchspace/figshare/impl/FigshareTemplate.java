@@ -20,6 +20,7 @@ import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.oauth2.TokenStrategy;
 import org.springframework.social.support.ClientHttpRequestFactorySelector;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -71,9 +72,7 @@ public final class FigshareTemplate extends AbstractOAuth2ApiBinding implements 
 
 	private void init() {
 		this.fileOps = new FileOperationsImpl(getRestTemplate(), personalToken);
-		this.utils = new FigshareUtils();
-		getRestTemplate().setErrorHandler(new LoggingResponseErrorHandler());
-		getRestTemplate().setRequestFactory(new BufferingClientHttpRequestFactory(ClientHttpRequestFactorySelector.getRequestFactory()));
+		this.utils = new FigshareUtils();		
 	}
 
 	public void setFileOps(FileOperations fileOps) {
@@ -196,6 +195,15 @@ public final class FigshareTemplate extends AbstractOAuth2ApiBinding implements 
 		log.debug(resp.getBody().toString());
 		return resp.getBody();
 	}
+	
+	protected void configureRestTemplate(RestTemplate restTemplate) {
+		restTemplate.setErrorHandler(new LoggingResponseErrorHandler());
+		//enables response to be read > once. This enables responses to be logged and also
+		//converted later into Java objects
+		restTemplate.setRequestFactory(new BufferingClientHttpRequestFactory(
+				ClientHttpRequestFactorySelector.getRequestFactory()));
+	}
+
 
 	protected ByteArrayHttpMessageConverter getByteArrayMessageConverter() {
 		ByteArrayHttpMessageConverter converter = new ByteArrayHttpMessageConverter();

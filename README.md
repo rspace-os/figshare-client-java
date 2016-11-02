@@ -1,2 +1,70 @@
 # figshare-client-java
 Java bindings to Figshare API
+
+This project uses Spring-REST and Spring Social to provide a Java client to the Figshare API.
+
+It is not complete, but supports basic Article operations and File upload.
+
+
+## Building
+
+To compile and run unit tests, check out and run  the following command. This will install the gradle build tool if you don't already have it.
+
+    ./gradlew clean test
+    
+To buuild without integration tests:
+
+    ./gradlew clean build -x integrationTest
+    
+## Integration tests
+
+Integration tests make real calls to the Figshare API. To run integration tests, you'll need a previously created Figshare account and a private access token that you can obtain from your Figshare account settings page. Add this as a command-line option, replacing 'XXXXX' with your token:
+
+    ./gradlew clean integrationTest -DfigshareToken=XXXXX
+    
+### Using the library
+
+The library can be used either with a personal token or by using the OAuth2 mechanism to acquire an access token.
+
+Additionally you can use this library in a Spring application, or independently. 
+
+If a personal token is used, this will take precedence over any OAuth2 access token
+
+
+### Use case 1 - personal token:
+
+#### In a Spring application
+
+
+Simply supply a personal token as a system property and autowire the Figshare API into your application:
+
+```java
+ @Autowired
+ private Figshare figshare;
+```
+
+To set up Figshare bean, if using Java configuration, use the configuration as is from SpringTestConfig. E.g.
+
+```java
+    
+    @Autowired Environment env;
+	
+	@Bean
+	FigshareTemplate FigshareTemplate (){
+	  FigshareTemplate ft =  new FigshareTemplate();
+	  ft.setPersonalToken(env.getProperty("figshareToken"));
+	  return ft;
+	}
+``` 
+
+#### In a non-Spring application
+    
+You'll have to set up the FigshareTemplate manually:
+
+```java 
+	 
+	  String token = "myToken";
+	  FigshareTemplate ft =  new FigshareTemplate();
+	  ft.setPersonalToken(token);
+	  return ft;
+``` 
