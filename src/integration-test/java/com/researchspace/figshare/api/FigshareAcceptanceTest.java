@@ -1,6 +1,5 @@
 package com.researchspace.figshare.api;
 
-import static org.apache.commons.lang.StringUtils.abbreviate;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -24,11 +23,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-import com.researchspace.figshare.impl.FigshareTemplate;
-import com.researchspace.figshare.impl.FileOperationsImpl;
 import com.researchspace.figshare.model.Account;
 import com.researchspace.figshare.model.ArticlePost;
 import com.researchspace.figshare.model.ArticlePresenter;
