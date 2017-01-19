@@ -1,9 +1,11 @@
 apply plugin: 'java'
 // enables 'install' task into repository
 apply plugin: 'maven'
+apply plugin: 'signing'
 group ='com.researchspace'
-sourceCompatibility = 1.8
 version = '0.0.1'
+sourceCompatibility = 1.8
+
 def springVersion='4.3.0.RELEASE'
 def spring_social_version ='1.1.4.RELEASE'
 def jacksonVersion='2.6.7'
@@ -70,4 +72,69 @@ tasks.withType(Test) {
 //Lists dependencies
 task listJars << {
     configurations.compile.each { File file -> println file.name }
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+signing {
+    sign configurations.archives
+}
+
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      pom.project {
+        name 'figshare-client-java'
+        packaging 'jar'
+        // optionally artifactId can be defined here 
+        description 'Java wrapper around the Figshare API'
+        url 'https://github.com/rspace-os/figshare-client-java'
+
+        scm {
+          connection 'https://github.com/rspace-os/figshare-client-java.git'
+          developerConnection 'https://github.com/rspace-os/figshare-client-java.git'
+          url 'https://github.com/rspace-os/figshare-client-java'
+        }
+
+        licenses {
+          license {
+            name 'The Apache License, Version 2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+          }
+        }
+
+        developers {
+          developer {
+            id 'richard23'
+            name 'Richard Adams'
+            email 'richard@researchspace.com'
+          }
+        }
+      }
+    }
+  }
 }

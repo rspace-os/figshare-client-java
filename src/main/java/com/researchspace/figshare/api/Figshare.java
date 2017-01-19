@@ -120,7 +120,7 @@ public interface Figshare  {
 	List<Category> getCategories ();
 
 	/**
-	 * Publishes article with given id. <br/>
+	 * Publishes article with given id. <br>
 	 * Will fail if Article is missing required fields
 	 * @param id
 	 * @return If publishing was successful, Location object will contain URL of published article. Otherwise,

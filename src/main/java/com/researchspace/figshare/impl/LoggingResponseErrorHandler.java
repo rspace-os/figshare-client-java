@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.social.support.BufferingClientHttpResponse;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 
 import lombok.extern.slf4j.Slf4j;
@@ -17,9 +16,7 @@ import lombok.extern.slf4j.Slf4j;
  * error message from Json
  * 
  * @author rspace
- * @see http://springinpractice.com/2013/10/07/handling-json-error-object-
- *      responses-with-springs-resttemplate/
- *
+ * @see "http://springinpractice.com/2013/10/07/handlingjson-error-object-responses-with-springs-resttemplate"
  */
 @Slf4j
 public class LoggingResponseErrorHandler extends DefaultResponseErrorHandler {

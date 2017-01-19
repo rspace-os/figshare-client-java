@@ -5,6 +5,18 @@ This project uses Spring-REST and Spring Social to provide a Java client to the 
 
 It is not complete, but supports basic Article operations and File upload.
 
+This library is also now available in MavenCentral if you want to just add it as a dependency:
+    
+    <dependency>
+      <groupId>com.researchspace</groupId>
+      <artifactId>figshare-client-java</artifactId>
+      <version>0.0.1</version>
+    </dependency>
+    
+or in Gradle:
+
+    compile 'com.researchspace:figshare-client-java:0.0.1'
+
 
 ## Building
 
@@ -21,6 +33,14 @@ To buuild without integration tests:
 Integration tests make real calls to the Figshare API. To run integration tests, you'll need a previously created Figshare account and a private access token that you can obtain from your Figshare account settings page. Add this as a command-line option, replacing 'XXXXX' with your token:
 
     ./gradlew clean integrationTest -DfigshareToken=XXXXX
+    
+Alternatively you can add the line:
+
+    systemProp.figshareToken=XXXXXXX
+    
+ to the file gradle.properties in your GRADLE\_HOME folder (by default this is USER\_HOME/.gradle) and run using command:
+ 
+    ./gradlew clean integrationTest    
     
 ### Using the library
 

@@ -12,16 +12,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.RandomStringUtils;
 
 import com.researchspace.figshare.model.FilePart;
 
 import lombok.extern.slf4j.Slf4j;
 /**
- * Splits files according to boundaries set in FilePart.<br/>
- * 
+ * Splits files according to boundaries set in FilePart.
+ * <p>
  * Indexes are 0-based, inclusive (from API docs)
+ * </p>
  * @author rspace
  *
  */
