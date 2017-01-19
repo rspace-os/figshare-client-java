@@ -24,7 +24,7 @@ To compile and run unit tests, check out and run  the following command. This wi
 
     ./gradlew clean test
     
-To buuild without integration tests:
+To build without integration tests:
 
     ./gradlew clean build -x integrationTest
     
