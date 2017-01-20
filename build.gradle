@@ -2,13 +2,13 @@ apply plugin: 'java'
 // enables 'install' task into repository
 apply plugin: 'maven'
 apply plugin: 'signing'
-group ='com.researchspace'
+group = 'com.researchspace'
 version = '0.0.2-SNAPSHOT'
 sourceCompatibility = 1.8
 
-ext.springVersion='4.3.0.RELEASE'
+ext.springVersion ='4.3.0.RELEASE'
 ext.spring_social_version ='1.1.4.RELEASE'
-ext.jacksonVersion='2.6.7'
+ext.jacksonVersion ='2.6.7'
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
 repositories {
@@ -74,7 +74,7 @@ tasks.withType(Test) {
 task listJars << {
     configurations.compile.each { File file -> println file.name }
 }
-
+// Below here are tasks required for signing and uploading to Maven Central
 task javadocJar(type: Jar) {
     classifier = 'javadoc'
     from javadoc
@@ -88,6 +88,7 @@ task sourcesJar(type: Jar) {
 // build sources/javaoc only for release version
 javadoc.onlyIf {isReleaseVersion}
 sourcesJar.onlyIf {isReleaseVersion}
+
 // Only sign if it's a release version
 signing {
     required { isReleaseVersion  }
