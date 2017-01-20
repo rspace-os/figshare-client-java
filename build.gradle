@@ -3,12 +3,13 @@ apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'signing'
 group ='com.researchspace'
-version = '0.0.1'
+version = '0.0.2-SNAPSHOT'
 sourceCompatibility = 1.8
 
-def springVersion='4.3.0.RELEASE'
-def spring_social_version ='1.1.4.RELEASE'
-def jacksonVersion='2.6.7'
+ext.springVersion='4.3.0.RELEASE'
+ext.spring_social_version ='1.1.4.RELEASE'
+ext.jacksonVersion='2.6.7'
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
 repositories {
     mavenCentral()      
@@ -79,12 +80,17 @@ task javadocJar(type: Jar) {
     from javadoc
 }
 
+
 task sourcesJar(type: Jar) {
     classifier = 'sources'
     from sourceSets.main.allSource
 }
-
+// build sources/javaoc only for release version
+javadoc.onlyIf {isReleaseVersion}
+sourcesJar.onlyIf {isReleaseVersion}
+// Only sign if it's a release version
 signing {
+    required { isReleaseVersion  }
     sign configurations.archives
 }
 
@@ -100,11 +106,11 @@ uploadArchives {
       beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
       repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-        authentication(userName: ossrhUsername, password: ossrhPassword)
+        authentication(userName: hasProperty(ossrhUsername)?ossrhUsername:"", password: hasProperty(ossrhPassword)?ossrhPassword:"")
       }
 
       snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-        authentication(userName: ossrhUsername, password: ossrhPassword)
+        authentication(userName: hasProperty(ossrhUsername)?ossrhUsername:"", password: hasProperty(ossrhPassword)?ossrhPassword:"")
       }
 
       pom.project {
