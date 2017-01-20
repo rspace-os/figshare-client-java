@@ -85,9 +85,7 @@ task sourcesJar(type: Jar) {
     classifier = 'sources'
     from sourceSets.main.allSource
 }
-// build sources/javaoc only for release version
-javadoc.onlyIf {isReleaseVersion}
-sourcesJar.onlyIf {isReleaseVersion}
+
 
 // Only sign if it's a release version
 signing {
