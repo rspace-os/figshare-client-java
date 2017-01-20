@@ -17,14 +17,13 @@ or in Gradle:
 
     compile 'com.researchspace:figshare-client-java:0.0.1'
 
-
 ## Building
 
-To compile and run unit tests, check out and run  the following command. This will install the gradle build tool if you don't already have it.
+To compile and run unit tests, check out and run  the following command. This will install the Gradle build tool if you don't already have it.
 
     ./gradlew clean test
     
-To build without integration tests:
+To build a jar without integration tests:
 
     ./gradlew clean build -x integrationTest
     
@@ -54,7 +53,6 @@ If a personal token is used, this will take precedence over any OAuth2 access to
 ### Use case 1 - personal token:
 
 #### In a Spring application
-
 
 Simply supply a personal token as a system property and autowire the Figshare API into your application:
 
@@ -116,7 +114,5 @@ Here is some code which creates a new article, uploads a file, and returns a lin
 		Location article = figshare.createArticle(toPost);
 	    PrivateArticleLink privateLink = figshare.createPrivateArticleLink(article.getId());
 	    Location fileId = figshare.uploadFile(article.getId(), anyFile);
-		String feedbackMsg = String.format("Deposit succeeded - private article link is %s.", privateLink.getWeblink());
-			
-
+		String feedbackMsg = String.format("Deposit succeeded - private article link is %s.", privateLink.getWeblink());			
 ```
