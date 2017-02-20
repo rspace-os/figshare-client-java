@@ -127,6 +127,7 @@ public class FigshareAcceptanceTest extends AbstractJUnit4SpringContextTests{
 		assertNotNull(articleLoc.getId());
 		ArticlePresenter article2 = templateProxy.getArticle(articleLoc.getId());
 		assertEquals(article.getDescription(), article2.getDescription());
+		assertTrue(article2.getLicense().getUrl().toString().toUpperCase().contains("GPL"));
 		assertTrue(article2.getCategories().stream()
 				.filter((cat)->cat.getTitle().equals("Software Engineering")).findFirst().isPresent());
 		
@@ -214,6 +215,7 @@ public class FigshareAcceptanceTest extends AbstractJUnit4SpringContextTests{
 				.author(new Author("Bob Jones", null))
 				.tags(Arrays.asList(new String []{"rspace"}))
 				.categories(Arrays.asList(new Integer []{21,23}))
+				.license(4) //GPL
 				.build();
 		return article;
 	}

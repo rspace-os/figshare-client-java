@@ -27,5 +27,7 @@ public class ArticlePost {
 	private List<String> tags;
 	
 	private List<String> references;
+	
+	private Integer license;
 
 }

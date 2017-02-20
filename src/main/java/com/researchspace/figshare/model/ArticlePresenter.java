@@ -27,5 +27,7 @@ public class ArticlePresenter {
 	private List<String> tags;
 	
 	private List<String> references;
+	
+	private License license;
 
 }
