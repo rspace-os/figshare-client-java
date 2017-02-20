@@ -35,6 +35,7 @@ import com.researchspace.figshare.model.Category;
 import com.researchspace.figshare.model.FigshareError;
 import com.researchspace.figshare.model.FigshareResponse;
 import com.researchspace.figshare.model.FilePresenter;
+import com.researchspace.figshare.model.License;
 import com.researchspace.figshare.model.Location;
 import com.researchspace.figshare.model.PrivateArticle;
 import com.researchspace.figshare.model.PrivateArticleLink;
@@ -218,8 +219,17 @@ public final class FigshareTemplate extends AbstractOAuth2ApiBinding implements 
 		};
 		ResponseEntity<List<Category>> resp = getRestTemplate().exchange(url, HttpMethod.GET, createEmptyEntity(), pt);
 		List<Category> cats = resp.getBody();
-
 		return cats;
+	}
+	
+	@Override
+	public List<License> getLicenses() {
+		String url = utils.createPath("/licenses");
+		ParameterizedTypeReference<List<License>> pt = new ParameterizedTypeReference<List<License>>() {
+		};
+		ResponseEntity<List<License>> resp = getRestTemplate().exchange(url, HttpMethod.GET, createEmptyEntity(), pt);
+		List<License> licenses = resp.getBody();
+		return licenses;
 	}
 
 	@Override
@@ -268,7 +278,5 @@ public final class FigshareTemplate extends AbstractOAuth2ApiBinding implements 
 		HttpEntity<String> entity = utils.createHttpEntity("", personalToken);
 		return entity;
 	}
-
-	
 
 }

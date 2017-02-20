@@ -31,6 +31,7 @@ import com.researchspace.figshare.model.ArticlePresenter;
 import com.researchspace.figshare.model.Author;
 import com.researchspace.figshare.model.Category;
 import com.researchspace.figshare.model.FigshareResponse;
+import com.researchspace.figshare.model.License;
 import com.researchspace.figshare.model.Location;
 import com.researchspace.figshare.model.PrivateArticle;
 import com.researchspace.figshare.model.PrivateArticleLink;
@@ -103,6 +104,13 @@ public class FigshareAcceptanceTest extends AbstractJUnit4SpringContextTests{
 					(c)->c.getId().equals(cat.getParentId())).collect(Collectors.toList()));
 		});
 		parents.stream().forEach((c)->System.out.println(c));	
+	}
+	
+	@Test
+	public void testLicenses() {		
+		List<License> categories = templateProxy.getLicenses();
+		assertTrue(categories.size() > 5);
+		categories.stream().forEach((c)->System.out.println(c));	
 	}
 	
 	@Test

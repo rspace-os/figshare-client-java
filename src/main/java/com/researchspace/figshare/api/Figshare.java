@@ -10,6 +10,7 @@ import com.researchspace.figshare.model.Category;
 import com.researchspace.figshare.model.FigshareError;
 import com.researchspace.figshare.model.FigshareResponse;
 import com.researchspace.figshare.model.FilePresenter;
+import com.researchspace.figshare.model.License;
 import com.researchspace.figshare.model.Location;
 import com.researchspace.figshare.model.PrivateArticle;
 import com.researchspace.figshare.model.PrivateArticleLink;
@@ -134,6 +135,12 @@ public interface Figshare  {
 	 * @param uniqueLinkKey
 	 */
 	void deletePrivateArticleLink(Long articleId, String uniqueLinkKey);
+
+	/**
+	 * Get a list of valid licenses supported by Figshare
+	 * @return
+	 */
+	List<License> getLicenses();
 	
 
 }
