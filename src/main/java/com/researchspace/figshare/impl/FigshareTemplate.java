@@ -49,7 +49,7 @@ public final class FigshareTemplate extends AbstractOAuth2ApiBinding implements 
 	private FileOperations fileOps;
 	private FigshareUtils utils;
 
-	private static final String DEFAULT_LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/";
+	
 	/**
 	 * Set personal token for use e.g. in testing. Can be <code>null</code>.
 	 * 

@@ -1,6 +1,7 @@
 package com.researchspace.figshare.api;
 
 import java.io.File;
+import java.net.URL;
 import java.util.List;
 
 import com.researchspace.figshare.model.Account;
@@ -21,6 +22,9 @@ import com.researchspace.figshare.model.PrivateArticleLink;
  *
  */
 public interface Figshare  {
+	
+    String DEFAULT_LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/";
+	
 
 	/**
 	 * Tests connection to Account details - i.e that OAuth token is valid.
