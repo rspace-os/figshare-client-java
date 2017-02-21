@@ -99,18 +99,18 @@ public class FigshareAcceptanceTest extends AbstractJUnit4SpringContextTests{
 		assertTrue(categories.size() > 20);
 		// this is to see if any parent categories are returned in the list - currently they're not.
 		List<Category> parents = new ArrayList<>();
-		  categories.stream().forEach((cat)->{
+		  categories.stream().forEach(cat->{
 			parents.addAll(categories.stream().filter(
-					(c)->c.getId().equals(cat.getParentId())).collect(Collectors.toList()));
+					c->c.getId().equals(cat.getParentId())).collect(Collectors.toList()));
 		});
-		parents.stream().forEach((c)->System.out.println(c));	
+		parents.stream().forEach(c->System.out.println(c));	
 	}
 	
 	@Test
 	public void testLicenses() {		
 		List<License> categories = templateProxy.getLicenses();
 		assertTrue(categories.size() > 5);
-		categories.stream().forEach((c)->System.out.println(c));	
+		categories.stream().forEach(lic->System.out.println(lic));	
 	}
 	
 	@Test

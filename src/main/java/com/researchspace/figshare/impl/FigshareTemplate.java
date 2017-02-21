@@ -49,6 +49,7 @@ public final class FigshareTemplate extends AbstractOAuth2ApiBinding implements 
 	private FileOperations fileOps;
 	private FigshareUtils utils;
 
+	private static final String DEFAULT_LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/";
 	/**
 	 * Set personal token for use e.g. in testing. Can be <code>null</code>.
 	 * 
@@ -229,6 +230,10 @@ public final class FigshareTemplate extends AbstractOAuth2ApiBinding implements 
 		};
 		ResponseEntity<List<License>> resp = getRestTemplate().exchange(url, HttpMethod.GET, createEmptyEntity(), pt);
 		List<License> licenses = resp.getBody();
+		//set default license which is CC-BY as of Feb 2017
+		licenses.stream().filter((l)->l.getUrl().toString().equals(DEFAULT_LICENSE_URL))
+		                 .findFirst().ifPresent(l -> l.setDefaultLicense(true));
+		    
 		return licenses;
 	}
 

@@ -14,5 +14,6 @@ public class License {
 	URL url;
 	String name;
 	Integer value;
+	boolean defaultLicense;
 
 }
