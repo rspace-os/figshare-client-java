@@ -3,7 +3,7 @@ apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'signing'
 group = 'com.researchspace'
-version = '0.0.3'
+version = '0.0.4'
 sourceCompatibility = 1.8
 
 ext.springVersion ='4.3.8.RELEASE'
@@ -37,7 +37,7 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-core:'+jacksonVersion
     compile 'com.fasterxml.jackson.core:jackson-databind:'+jacksonVersion
       
-    compile 'org.projectlombok:lombok:1.16.10'
+    compile 'org.projectlombok:lombok:1.16.16'
     compile 'commons-lang:commons-lang:2.6'
     compile 'commons-io:commons-io:2.5'
     compile 'org.springframework.social:spring-social-core:'+spring_social_version

@@ -1,5 +1,6 @@
 package com.researchspace.figshare.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -23,10 +24,10 @@ public class ArticlePost {
 	private @Singular List<Author> authors;
 	
 	private @Singular List<Integer>categories;
+	//required so that list is never empty
+	private @Builder.Default List<String> tags= new ArrayList<>();
 	
-	private List<String> tags;
-	
-	private List<String> references;
+	private @Builder.Default List<String> references = new ArrayList<>();
 	
 	private Integer license;
 
