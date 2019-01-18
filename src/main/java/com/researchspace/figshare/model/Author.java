@@ -1,5 +1,8 @@
 package com.researchspace.figshare.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +17,7 @@ import lombok.NoArgsConstructor;
 public class Author {
 	
 	private String name;
+	@JsonInclude(Include.NON_NULL)
 	private Integer id;
 
 }
