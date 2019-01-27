@@ -10,12 +10,12 @@ This library is also now available in MavenCentral if you want to just add it as
     <dependency>
       <groupId>com.researchspace</groupId>
       <artifactId>figshare-client-java</artifactId>
-      <version>0.0.1</version>
+      <version>0.1.1</version>
     </dependency>
     
 or in Gradle:
 
-    compile 'com.researchspace:figshare-client-java:0.0.1'
+    compile 'com.researchspace:figshare-client-java:0.1.1'
 
 ## Building
 
