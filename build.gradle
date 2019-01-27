@@ -70,10 +70,6 @@ tasks.withType(Test) {
     reports.html.destination = file("${reporting.baseDir}/${name}")
 }
 
-//Lists dependencies
-task listJars << {
-    configurations.compile.each { File file -> println file.name }
-}
 // Below here are tasks required for signing and uploading to Maven Central
 task javadocJar(type: Jar) {
     classifier = 'javadoc'
