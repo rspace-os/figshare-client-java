@@ -159,7 +159,7 @@ public class FigshareAcceptanceTest extends AbstractJUnit4SpringContextTests{
 		Location file1 = null, file2 = null;
 		try {
 		 file1 = templateProxy.uploadFile(articleLoc.getId(), smallFile);
-		 file2 = templateProxy.uploadFile(articleLoc.getId(), smallFile);
+		 file2 = templateProxy.uploadFile(articleLoc.getId(), dataFile);
 		}catch (Exception e) {
 			log.warn(e.getMessage());
 		}
