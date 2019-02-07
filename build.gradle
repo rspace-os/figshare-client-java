@@ -3,7 +3,7 @@ apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'signing'
 group = 'com.researchspace'
-version = '0.2.1'
+version = '0.2.2'
 sourceCompatibility = 1.8
 
 ext.springVersion ='4.3.22.RELEASE'

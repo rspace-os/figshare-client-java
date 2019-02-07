@@ -40,7 +40,7 @@ public class Account {
 	private long institutionId;
 	
 	@JsonProperty("institution_user_id")
-	private long institutionUserId;
+	private String institutionUserId;
 	
 	@JsonProperty("maximum_file_size")
 	private long maximumFileSize;
