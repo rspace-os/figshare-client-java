@@ -1,0 +1,18 @@
+{
+    "last_name": "George",
+    "used_quota": 5449733418,
+    "quota": 7516192768,
+    "institution_user_id": "c.george@lilliput.ac.uk",
+    "institution_id": 15,
+    "pending_quota_request": false,
+    "active": 1,
+    "maximum_file_size": 0,
+    "id": 1171695,
+    "used_quota_private": 5449733418,
+    "modified_date": "2019-01-21T15:15:35Z",
+    "first_name": "Christopher",
+    "used_quota_public": 0,
+    "created_date": "2015-04-27T13:47:14Z",
+    "group_id": 1344,
+    "email": "c.george@lilliput.ac.uk"
+}

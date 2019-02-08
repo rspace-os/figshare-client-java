@@ -3,7 +3,7 @@ apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'signing'
 group = 'com.researchspace'
-version = '0.2.2'
+version = '0.2.3'
 sourceCompatibility = 1.8
 
 ext.springVersion ='4.3.22.RELEASE'
@@ -84,10 +84,10 @@ task sourcesJar(type: Jar) {
 
 
  //Only sign if it's a release version, uncomment to activate this
-//signing {
-//    required { isReleaseVersion  }
-//    sign configurations.archives
-//}
+signing {
+    required { isReleaseVersion  }
+    sign configurations.archives
+}
 
 
 artifacts {

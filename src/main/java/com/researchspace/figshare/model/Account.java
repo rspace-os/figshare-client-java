@@ -2,6 +2,7 @@ package com.researchspace.figshare.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
@@ -9,6 +10,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(of = { "email", "id" })
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Account {
 
 	@JsonProperty("used_quota_private")
@@ -48,5 +50,8 @@ public class Account {
 	@JsonProperty("pending_quota_request")
 	private boolean pendingQuotaRequest;
 	private int active;
+	
+	@JsonProperty("group_id")
+	private Long groupId;
 
 }
