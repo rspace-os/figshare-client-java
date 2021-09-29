@@ -7,7 +7,7 @@ import org.springframework.core.env.Environment;
 
 import com.researchspace.figshare.impl.FigshareTemplate;
 /**
- * Test configuration. REquirs personal token set as system property e.g. -DfigshareToken=XXX 
+ * Test configuration. Requires personal token set as system or environment  property e.g. -DfigshareToken=XXX
  * @author rspace
  *
  */
@@ -18,8 +18,7 @@ public class SpringTestConfig {
 	
 	@Bean
 	FigshareTemplate FigshareTemplate (){
-		FigshareTemplate ft =  new FigshareTemplate();
-		ft.setPersonalToken(env.getProperty("figshareToken"));
+		FigshareTemplate ft =  new FigshareTemplate(env.getProperty("figshareToken"));
 		return ft;
 	}
 	

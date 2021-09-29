@@ -1,27 +1,5 @@
 package com.researchspace.figshare.impl;
 
-import static org.springframework.http.HttpStatus.NO_CONTENT;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.BufferingClientHttpRequestFactory;
-import org.springframework.http.converter.ByteArrayHttpMessageConverter;
-import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
-import org.springframework.social.oauth2.TokenStrategy;
-import org.springframework.social.support.ClientHttpRequestFactorySelector;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -39,31 +17,58 @@ import com.researchspace.figshare.model.License;
 import com.researchspace.figshare.model.Location;
 import com.researchspace.figshare.model.PrivateArticle;
 import com.researchspace.figshare.model.PrivateArticleLink;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
-public final class FigshareTemplate extends AbstractOAuth2ApiBinding implements Figshare {
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+
+public final class FigshareTemplate implements Figshare {
 
 	Logger log = LoggerFactory.getLogger(FigshareTemplate.class);
 
-	private String personalToken;
+	private String accessToken;
 
 	private FileOperations fileOps;
 	private FigshareUtils utils;
-	
-	/**
-	 * Set personal token for use e.g. in testing. Can be <code>null</code>.
-	 * 
-	 * @param personalToken
-	 */
-	public void setPersonalToken(String personalToken) {
-		this.personalToken = personalToken;
+
+	protected RestTemplate getRestTemplate() {
+		return restTemplate;
 	}
 
-	public FigshareTemplate() {
-		// TODO Auto-generated constructor stub
+	/**
+	 * Set alternative RestTemplate
+	 * @param restTemplate
+	 */
+	public void setRestTemplate(RestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
+	}
+
+	private RestTemplate restTemplate;
+	
+	/**
+	 * Set  token for use e.g. in testing.
+	 * 
+	 * @param accessToken
+	 */
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
 	}
 
 	public FigshareTemplate(String accessToken) {
-		super(accessToken, TokenStrategy.ACCESS_TOKEN_PARAMETER);
+		this.accessToken = accessToken;
 		init();
 	}
 
@@ -72,8 +77,10 @@ public final class FigshareTemplate extends AbstractOAuth2ApiBinding implements 
 	}
 
 	private void init() {
-		this.fileOps = new FileOperationsImpl(getRestTemplate(), personalToken);
-		this.utils = new FigshareUtils();		
+		this.restTemplate = new RestTemplate();
+		configureRestTemplate();
+		this.fileOps = new FileOperationsImpl(restTemplate, accessToken);
+		this.utils = new FigshareUtils();
 	}
 
 	public void setFileOps(FileOperations fileOps) {
@@ -89,7 +96,7 @@ public final class FigshareTemplate extends AbstractOAuth2ApiBinding implements 
 	public Location createArticle(ArticlePost article) {
 		String url = utils.createPath("/account/articles");
 		String json = marshalObject(article);
-		HttpEntity<String> entity = utils.createHttpEntity(json, personalToken);
+		HttpEntity<String> entity = utils.createHttpEntity(json, accessToken);
 		ResponseEntity<String> resp = getRestTemplate().postForEntity(url, entity, String.class);
 		log.debug(resp.toString());
 		// can't convert directly as content type of returned is text/html?
@@ -101,7 +108,7 @@ public final class FigshareTemplate extends AbstractOAuth2ApiBinding implements 
 	public Location createFile(Long articleId, File file) {
 		String url = utils.createPath("/account/articles/{articleId}/files");
 		ObjectNode node = createFileJson(file);
-		HttpEntity<String> entity = utils.createHttpEntity(marshalObject(node), personalToken);
+		HttpEntity<String> entity = utils.createHttpEntity(marshalObject(node), accessToken);
 		ResponseEntity<String> resp = getRestTemplate().postForEntity(url, entity, String.class, articleId);
 		log.debug(resp.toString());
 		// can't convert directly as content type of returned is text/html?
@@ -197,12 +204,8 @@ public final class FigshareTemplate extends AbstractOAuth2ApiBinding implements 
 		return resp.getBody();
 	}
 	
-	protected void configureRestTemplate(RestTemplate restTemplate) {
+	protected void configureRestTemplate() {
 		restTemplate.setErrorHandler(new LoggingResponseErrorHandler());
-		//enables response to be read > once. This enables responses to be logged and also
-		//converted later into Java objects
-		restTemplate.setRequestFactory(new BufferingClientHttpRequestFactory(
-				ClientHttpRequestFactorySelector.getRequestFactory()));
 	}
 
 
@@ -279,7 +282,7 @@ public final class FigshareTemplate extends AbstractOAuth2ApiBinding implements 
 
 	// personal token used for testing and is added to the Authorisation Header.
 	private HttpEntity<String> createEmptyEntity() {
-		HttpEntity<String> entity = utils.createHttpEntity("", personalToken);
+		HttpEntity<String> entity = utils.createHttpEntity("", accessToken);
 		return entity;
 	}
 
