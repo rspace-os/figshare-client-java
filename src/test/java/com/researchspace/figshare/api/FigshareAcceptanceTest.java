@@ -1,4 +1,4 @@
-package api;
+package com.researchspace.figshare.api;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -16,7 +16,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.researchspace.figshare.api.Figshare;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
