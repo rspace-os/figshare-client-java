@@ -17,29 +17,32 @@ or in Gradle:
 
     compile 'com.researchspace:figshare-client-java:0.1.1'
 
+
+### Installing into a Maven repository
+
+From 0.3.0 onwards, this project can be added as a  dependency in your project using [JitPack](https://jitpack.io).
+
+Or, you can run:
+
+    ./mvnw clean install -DskipTests=true
+
+to install into a local Maven  repository.
+
 ## Building
 
 To compile and run unit tests, check out and run  the following command. This will install the Gradle build tool if you don't already have it.
 
-    ./gradlew clean test
+    ./mvnw clean test
     
-To build a jar without integration tests:
+To build a jar without  tests:
 
-    ./gradlew clean build -x integrationTest
+    ./mvnw clean package -DskipTests=true
     
 ## Integration tests
 
 Integration tests make real calls to the Figshare API. To run integration tests, you'll need a previously created Figshare account and a private access token that you can obtain from your Figshare account settings page. Add this as a command-line option, replacing 'XXXXX' with your token:
 
-    ./gradlew clean integrationTest -DfigshareToken=XXXXX
-    
-Alternatively you can add the line:
-
-    systemProp.figshareToken=XXXXXXX
-    
- to the file gradle.properties in your GRADLE\_HOME folder (by default this is USER\_HOME/.gradle) and run using command:
- 
-    ./gradlew clean integrationTest    
+    ./mvnw clean test -DfigshareToken=XXXXX
     
 ### Using the library
 
