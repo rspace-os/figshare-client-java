@@ -48,7 +48,6 @@ public final class FigshareTemplate extends AbstractOAuth2ApiBinding implements 
 
 	private FileOperations fileOps;
 	private FigshareUtils utils;
-
 	
 	/**
 	 * Set personal token for use e.g. in testing. Can be <code>null</code>.
