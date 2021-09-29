@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -194,6 +195,8 @@ public class FigshareAcceptanceTest extends AbstractJUnit4SpringContextTests{
 	}
 	
 	@Test
+	@Ignore
+	//TODO this seems to get published, so we should try to unpublish or cancel this test
 	public void testPublishArticle() throws IOException {
 		ArticlePost article = createFullArticle();
 		Location articleLoc = templateProxy.createArticle(article);
