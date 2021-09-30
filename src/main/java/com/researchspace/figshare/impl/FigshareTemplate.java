@@ -208,7 +208,6 @@ public final class FigshareTemplate implements Figshare {
 		restTemplate.setErrorHandler(new LoggingResponseErrorHandler());
 	}
 
-
 	protected ByteArrayHttpMessageConverter getByteArrayMessageConverter() {
 		ByteArrayHttpMessageConverter converter = new ByteArrayHttpMessageConverter();
 		converter.setSupportedMediaTypes(Arrays.asList(MediaType.ALL));
