@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.researchspace</groupId>
     <artifactId>figshare-client-java</artifactId>
-    <version>0.3.0</version>
+    <version>0.3.1</version>
     <build>
         <resources></resources>
         <sourceDirectory>src/main/java</sourceDirectory>
@@ -84,7 +84,7 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.5</version>
+            <version>2.7</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -94,7 +94,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
