@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.rspace-os</groupId>
     <artifactId>figshare-client-java</artifactId>
-    <version>0.3.2</version>
+    <version>0.3.3</version>
     <build>
         <resources></resources>
         <sourceDirectory>src/main/java</sourceDirectory>

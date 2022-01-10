@@ -1,17 +1,16 @@
 package com.researchspace.figshare.api;
 
 import java.io.File;
-import java.net.URL;
 import java.util.List;
 
 import com.researchspace.figshare.model.Account;
 import com.researchspace.figshare.model.ArticlePost;
 import com.researchspace.figshare.model.ArticlePresenter;
-import com.researchspace.figshare.model.Category;
+import com.researchspace.figshare.model.FigshareCategory;
 import com.researchspace.figshare.model.FigshareError;
 import com.researchspace.figshare.model.FigshareResponse;
 import com.researchspace.figshare.model.FilePresenter;
-import com.researchspace.figshare.model.License;
+import com.researchspace.figshare.model.FigshareLicense;
 import com.researchspace.figshare.model.Location;
 import com.researchspace.figshare.model.PrivateArticle;
 import com.researchspace.figshare.model.PrivateArticleLink;
@@ -122,7 +121,7 @@ public interface Figshare  {
 	 * Gets list of Categories. Currently parent Categories are not returned, only their ids in parentID fields.
 	 * @return
 	 */
-	List<Category> getCategories ();
+	List<FigshareCategory> getCategories (boolean useAccountCategories);
 
 	/**
 	 * Publishes article with given id. <br>
@@ -144,7 +143,7 @@ public interface Figshare  {
 	 * Get a list of valid licenses supported by Figshare
 	 * @return
 	 */
-	List<License> getLicenses();
+	List<FigshareLicense> getLicenses(boolean useAccountLicenses);
 	
 
 }

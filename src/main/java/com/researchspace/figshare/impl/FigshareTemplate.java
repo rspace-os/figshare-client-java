@@ -9,11 +9,11 @@ import com.researchspace.figshare.api.FileOperations;
 import com.researchspace.figshare.model.Account;
 import com.researchspace.figshare.model.ArticlePost;
 import com.researchspace.figshare.model.ArticlePresenter;
-import com.researchspace.figshare.model.Category;
+import com.researchspace.figshare.model.FigshareCategory;
 import com.researchspace.figshare.model.FigshareError;
 import com.researchspace.figshare.model.FigshareResponse;
 import com.researchspace.figshare.model.FilePresenter;
-import com.researchspace.figshare.model.License;
+import com.researchspace.figshare.model.FigshareLicense;
 import com.researchspace.figshare.model.Location;
 import com.researchspace.figshare.model.PrivateArticle;
 import com.researchspace.figshare.model.PrivateArticleLink;
@@ -215,22 +215,31 @@ public final class FigshareTemplate implements Figshare {
 	}
 
 	@Override
-	public List<Category> getCategories() {
+	public List<FigshareCategory> getCategories(boolean useAccountCategories) {
 		String url = utils.createPath("/categories");
-		ParameterizedTypeReference<List<Category>> pt = new ParameterizedTypeReference<List<Category>>() {
+		// Flag here is used to retrieve private categories for this account if set, see here: https://docs.figshare.com/#private_categories_list
+		if(useAccountCategories) {
+			url = utils.createPath("/account/categories");
+		}
+
+		ParameterizedTypeReference<List<FigshareCategory>> pt = new ParameterizedTypeReference<List<FigshareCategory>>() {
 		};
-		ResponseEntity<List<Category>> resp = getRestTemplate().exchange(url, HttpMethod.GET, createEmptyEntity(), pt);
-		List<Category> cats = resp.getBody();
+		ResponseEntity<List<FigshareCategory>> resp = getRestTemplate().exchange(url, HttpMethod.GET, createEmptyEntity(), pt);
+		List<FigshareCategory> cats = resp.getBody();
 		return cats;
 	}
 	
 	@Override
-	public List<License> getLicenses() {
+	public List<FigshareLicense> getLicenses(boolean useAccountLicenses) {
 		String url = utils.createPath("/licenses");
-		ParameterizedTypeReference<List<License>> pt = new ParameterizedTypeReference<List<License>>() {
+		// Flag here is used to retrieve private licenses for this account if set, see here: https://docs.figshare.com/#private_licenses_list
+		if(useAccountLicenses) {
+			url = utils.createPath("/account/licenses");
+		}
+		ParameterizedTypeReference<List<FigshareLicense>> pt = new ParameterizedTypeReference<List<FigshareLicense>>() {
 		};
-		ResponseEntity<List<License>> resp = getRestTemplate().exchange(url, HttpMethod.GET, createEmptyEntity(), pt);
-		List<License> licenses = resp.getBody();
+		ResponseEntity<List<FigshareLicense>> resp = getRestTemplate().exchange(url, HttpMethod.GET, createEmptyEntity(), pt);
+		List<FigshareLicense> licenses = resp.getBody();
 		//set default license which is CC-BY as of Feb 2017
 		licenses.stream().filter((l)->l.getUrl().toString().equals(DEFAULT_LICENSE_URL))
 		                 .findFirst().ifPresent(l -> l.setDefaultLicense(true));
