@@ -5,22 +5,23 @@ This project uses Spring-REST and Spring Social to provide a Java client to the 
 
 It is not complete, but supports basic Article operations and File upload.
 
-This library is also now available in MavenCentral if you want to just add it as a dependency:
-    
-    <dependency>
-      <groupId>com.researchspace</groupId>
-      <artifactId>figshare-client-java</artifactId>
-      <version>0.1.1</version>
-    </dependency>
-    
-or in Gradle:
-
-    compile 'com.researchspace:figshare-client-java:0.1.1'
-
 
 ### Installing into a Maven repository
 
 From 0.3.0 onwards, this project can be added as a  dependency in your project using [JitPack](https://jitpack.io).
+
+    <dependency>
+       <groupId>com.github.rspace-os</groupId>
+       <artifactId>figshare-client-java</artifactId>
+       <version>v0.3.2</version>
+    </dependency>
+
+or Gradle:
+
+    compile 'com.github.rspace-os:figshare-client-java:v0.3.2'
+  
+
+Builds and their metadata are available at https://jitpack.io/com/github/rspace-os/figshare-client-java/
 
 Or, you can run:
 
