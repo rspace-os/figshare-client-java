@@ -113,12 +113,13 @@ public interface Figshare  {
 	 * @return The {@link Location} of the newly created file.
 	 */
 	Location dropFilesAndReplace (Long articleId, File toUpload);
-	
-	
-	
-	
+
+
+
+
 	/**
-	 * Gets list of Categories. Currently parent Categories are not returned, only their ids in parentID fields.
+	 * Gets list of Categories, currently parent Categories are not returned, only their ids in parentID fields.
+	 * @param useAccountCategories boolean flag used to retrieve private categories for this account if set, see here: https://docs.figshare.com/#private_categories_list
 	 * @return
 	 */
 	List<FigshareCategory> getCategories (boolean useAccountCategories);
@@ -141,7 +142,7 @@ public interface Figshare  {
 
 	/**
 	 * Get a list of valid licenses supported by Figshare
-	 * @return
+	 * @param useAccountLicenses boolean flag here is used to retrieve private licenses for this account if set, see here: https://docs.figshare.com/#private_licenses_list
 	 */
 	List<FigshareLicense> getLicenses(boolean useAccountLicenses);
 	
