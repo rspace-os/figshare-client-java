@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class License {
+public class FigshareLicense {
 	
 	URL url;
 	String name;

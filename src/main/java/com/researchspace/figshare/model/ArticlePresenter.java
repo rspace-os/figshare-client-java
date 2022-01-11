@@ -22,12 +22,12 @@ public class ArticlePresenter {
 	
 	private @Singular List<Author> authors;
 	
-	private List<Category>categories;
+	private List<FigshareCategory>categories;
 	
 	private List<String> tags;
 	
 	private List<String> references;
 	
-	private License license;
+	private FigshareLicense license;
 
 }

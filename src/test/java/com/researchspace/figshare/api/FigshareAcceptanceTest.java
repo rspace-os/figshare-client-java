@@ -30,9 +30,9 @@ import com.researchspace.figshare.model.Account;
 import com.researchspace.figshare.model.ArticlePost;
 import com.researchspace.figshare.model.ArticlePresenter;
 import com.researchspace.figshare.model.Author;
-import com.researchspace.figshare.model.Category;
+import com.researchspace.figshare.model.FigshareCategory;
 import com.researchspace.figshare.model.FigshareResponse;
-import com.researchspace.figshare.model.License;
+import com.researchspace.figshare.model.FigshareLicense;
 import com.researchspace.figshare.model.Location;
 import com.researchspace.figshare.model.PrivateArticle;
 import com.researchspace.figshare.model.PrivateArticleLink;
@@ -96,10 +96,10 @@ public class FigshareAcceptanceTest extends AbstractJUnit4SpringContextTests{
 	
 	@Test
 	public void testCategories() {		
-		List<Category> categories = templateProxy.getCategories();
+		List<FigshareCategory> categories = templateProxy.getCategories(false);
 		assertTrue(categories.size() > 20);
 		// this is to see if any parent categories are returned in the list - currently they're not.
-		List<Category> parents = new ArrayList<>();
+		List<FigshareCategory> parents = new ArrayList<>();
 		  categories.stream().forEach(cat->{
 			parents.addAll(categories.stream().filter(
 					c->c.getId().equals(cat.getParentId())).collect(Collectors.toList()));
@@ -109,9 +109,9 @@ public class FigshareAcceptanceTest extends AbstractJUnit4SpringContextTests{
 	
 	@Test
 	public void testLicenses() {		
-		List<License> categories = templateProxy.getLicenses();
-		assertTrue(categories.size() > 5);
-		categories.stream().forEach(lic->System.out.println(lic));	
+		List<FigshareLicense> licenses = templateProxy.getLicenses(false);
+		assertTrue(licenses.size() > 5);
+		licenses.stream().forEach(lic->System.out.println(lic));
 	}
 	
 	@Test
