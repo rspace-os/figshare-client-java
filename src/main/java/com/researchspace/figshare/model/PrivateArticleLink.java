@@ -5,6 +5,7 @@ import static org.apache.commons.io.FilenameUtils.getName;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class PrivateArticleLink {
 	
 	public  static final String  URL_PREFIX = "https://figshare.com/s/";

@@ -13,7 +13,7 @@ From 0.3.0 onwards, this project can be added as a  dependency in your project u
     <dependency>
        <groupId>com.github.rspace-os</groupId>
        <artifactId>figshare-client-java</artifactId>
-       <version>v0.3.2</version>
+       <version>v0.4.1</version>
     </dependency>
 
 or Gradle:
