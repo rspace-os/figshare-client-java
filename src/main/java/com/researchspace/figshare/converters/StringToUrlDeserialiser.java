@@ -13,26 +13,26 @@ import java.util.Optional;
 
 public class StringToUrlDeserialiser extends StdDeserializer {
 
-        private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     public StringToUrlDeserialiser() {
         this(null);
     }
 
-        public StringToUrlDeserialiser(Class clazz) {
-            super(clazz);
-        }
+    public StringToUrlDeserialiser(Class clazz) {
+        super(clazz);
+    }
 
-        @Override
-        public URL deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
-            ObjectCodec objectCodec = jsonParser.getCodec();
-            JsonNode node = objectCodec.readTree(jsonParser);
-            String stringUrl = node.asText();
-            if (StringUtils.isBlank(stringUrl)) {
-                return null;
-            } else {
-               return new URL(stringUrl);
-            }
+    @Override
+    public URL deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+        ObjectCodec objectCodec = jsonParser.getCodec();
+        JsonNode node = objectCodec.readTree(jsonParser);
+        String stringUrl = node.asText();
+        if (StringUtils.isBlank(stringUrl)) {
+            return null;
+        } else {
+            return new URL(stringUrl);
         }
+    }
 
 }

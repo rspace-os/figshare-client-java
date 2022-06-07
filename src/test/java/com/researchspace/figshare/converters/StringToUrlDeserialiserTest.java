@@ -28,7 +28,7 @@ public class StringToUrlDeserialiserTest {
         ArticlePresenter articlePresenterDeserialised = mapper.readValue(testJson, ArticlePresenter.class);
         assertEquals(articlePresenterDeserialised.getPrivateURL(), presenter.getPrivateURL());
         assertEquals(articlePresenterDeserialised.getPublicApiURL(), presenter.getPublicApiURL());
-        assertEquals(articlePresenterDeserialised.getPublicURL()    , presenter.getPublicURL());
+        assertEquals(articlePresenterDeserialised.getPublicURL(), presenter.getPublicURL());
         assertEquals(articlePresenterDeserialised.getPrivateApiURL(), presenter.getPrivateApiURL());
     }
 
@@ -37,9 +37,9 @@ public class StringToUrlDeserialiserTest {
 
         ObjectMapper mapper = new ObjectMapper();
         ArticlePresenter articlePresenterDeserialised = mapper.readValue("{}", ArticlePresenter.class);
-        assertNull(articlePresenterDeserialised.getPrivateURL() );
+        assertNull(articlePresenterDeserialised.getPrivateURL());
         assertNull(articlePresenterDeserialised.getPublicApiURL());
-        assertNull(articlePresenterDeserialised.getPublicURL() );
+        assertNull(articlePresenterDeserialised.getPublicURL());
         assertNull(articlePresenterDeserialised.getPrivateApiURL());
     }
 
