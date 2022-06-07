@@ -131,7 +131,7 @@ public class FigshareAcceptanceTest extends AbstractJUnit4SpringContextTests{
 		assertTrue(article2.getLicense().getUrl().toString().toUpperCase().contains("GPL"));
 		assertTrue(article2.getCategories().stream()
 				.filter((cat)->cat.getTitle().equals("Software Engineering")).findFirst().isPresent());
-		
+		assertNotNull(article2.getPrivateURL());
 		assertTrue(templateProxy.deleteArticle(articleLoc.getId()));
 	}
 	
@@ -171,7 +171,9 @@ public class FigshareAcceptanceTest extends AbstractJUnit4SpringContextTests{
 		assertEquals(1, templateProxy.getFiles(articleLoc.getId()).size() );
 		assertTrue(templateProxy.deleteArticle(articleLoc.getId()));	
 	}
-	
+
+	// note this test requires the testing Figshare account to be connected to an Orcid account.
+	// It will fail otherwise.
 	@Test
 	public void testPrivateLinkArticleCRUD() throws IOException {
 		ArticlePost article = createFullArticle();
