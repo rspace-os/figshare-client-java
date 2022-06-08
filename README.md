@@ -1,10 +1,9 @@
 # figshare-client-java
 Java bindings to Figshare API
 
-This project uses Spring-REST and Spring Social to provide a Java client to the Figshare API.
+This project uses Spring-REST to provide a Java client to the Figshare API.
 
 It is not complete, but supports basic Article operations and File upload.
-
 
 ### Installing into a Maven repository
 
@@ -60,10 +59,10 @@ If a personal token is used, this will take precedence over any OAuth2 access to
 
 Simply supply a personal token as a system property and autowire the Figshare API into your application:
 
-```java
+ ```java
  @Autowired
  private Figshare figshare;
-```
+ ```
 
 To set up Figshare bean, if using Java configuration, use the configuration as is from SpringTestConfig. E.g.
 
