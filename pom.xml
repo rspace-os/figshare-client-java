@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.rspace-os</groupId>
     <artifactId>figshare-client-java</artifactId>
-    <version>0.4.1</version>
+    <version>0.5.0</version>
     <build>
         <resources></resources>
         <sourceDirectory>src/main/java</sourceDirectory>
@@ -111,7 +111,7 @@
         </dependency>
     </dependencies>
     <properties>
-        <spring.version>5.3.16</spring.version>
+        <spring.version>5.3.20</spring.version>
         <jackson.version>2.12.5</jackson.version>
     </properties>
 </project>
