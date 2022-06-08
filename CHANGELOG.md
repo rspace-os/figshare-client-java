@@ -1,3 +1,9 @@
+This document record significant changes to the project
+
+### 0.5.0 2022-06-08
+
+- add public/private URLs to ArticleLink
+
 ### 0.4.1 2022-03-01
 
 - bump dependency versions. Spring 5.2 -> 5.3.16
