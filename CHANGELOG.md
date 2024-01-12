@@ -1,5 +1,10 @@
 This document record significant changes to the project
 
+### 0.6.0 2024-01-12
+
+- Compile with java 17
+- Switch to using parent pom from rspace-os-parent project
+
 ### 0.5.0 2022-06-08
 
 - add public/private URLs to ArticleLink
