@@ -122,23 +122,21 @@ public class FigshareAcceptanceTest extends AbstractJUnit4SpringContextTests {
         assertNotNull(account.getEmail());
     }
 
-
     @Test
-    public void testCreateAndDeleteArticle() throws IOException {
+    public void testCreateAndDeleteArticle() {
         ArticlePost article = createFullArticle();
         Location articleLoc = templateProxy.createArticle(article);
         assertNotNull(articleLoc.getId());
         ArticlePresenter article2 = templateProxy.getArticle(articleLoc.getId());
         assertEquals(article.getDescription(), article2.getDescription());
         assertTrue(article2.getLicense().getUrl().toString().toUpperCase().contains("GPL"));
-        assertTrue(article2.getCategories().stream()
-                .filter((cat) -> cat.getTitle().equals("Software Engineering")).findFirst().isPresent());
+        assertEquals("Software testing, verification and validation", article2.getCategories().get(0).getTitle());
         assertNotNull(article2.getPrivateURL());
         assertTrue(templateProxy.deleteArticle(articleLoc.getId()));
     }
 
     @Test
-    public void testCreateAndDeleteFile() throws IOException {
+    public void testCreateAndDeleteFile() {
         ArticlePost article = createFullArticle();
         Location articleLoc = templateProxy.createArticle(article);
         Location file = null;
@@ -156,7 +154,7 @@ public class FigshareAcceptanceTest extends AbstractJUnit4SpringContextTests {
     }
 
     @Test
-    public void testDropFilesAndReplace() throws IOException {
+    public void testDropFilesAndReplace() {
         ArticlePost article = createFullArticle();
         Location articleLoc = templateProxy.createArticle(article);
         Location file1 = null, file2 = null;
@@ -177,7 +175,7 @@ public class FigshareAcceptanceTest extends AbstractJUnit4SpringContextTests {
     // note this test requires the testing Figshare account to be connected to an Orcid account.
     // It will fail otherwise.
     @Test
-    public void testPrivateLinkArticleCRUD() throws IOException {
+    public void testPrivateLinkArticleCRUD() {
         ArticlePost article = createFullArticle();
         Location articleLoc = templateProxy.createArticle(article);
         assertNotNull(articleLoc.getId());
@@ -201,7 +199,7 @@ public class FigshareAcceptanceTest extends AbstractJUnit4SpringContextTests {
     @Test
     @Ignore
     //TODO this seems to get published, so we should try to unpublish or cancel this test
-    public void testPublishArticle() throws IOException {
+    public void testPublishArticle() {
         ArticlePost article = createFullArticle();
         Location articleLoc = templateProxy.createArticle(article);
         assertNotNull(articleLoc.getId());
@@ -221,7 +219,7 @@ public class FigshareAcceptanceTest extends AbstractJUnit4SpringContextTests {
         ArticlePost article = ArticlePost.builder().title("Title").description("Description")
                 .author(new Author("Bob Jones", null))
                 .tags(Arrays.asList(new String[]{"rspace"}))
-                .categories(Arrays.asList(new Integer[]{21, 23}))
+                .categories(Arrays.asList(new Long[]{ FigshareCategory.SOFTWARE_TESTING.getId()}))
                 .license(4) //GPL
                 .build();
         return article;

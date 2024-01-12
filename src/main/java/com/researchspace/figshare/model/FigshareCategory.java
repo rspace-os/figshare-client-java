@@ -12,11 +12,13 @@ import lombok.NoArgsConstructor;
 public class FigshareCategory {
 
 	/**
-	 * Default Category
+	 * Example category to use when testing
 	 */
-	public static final FigshareCategory UNCATEGORIZED = new FigshareCategory(2L, 30L, "Uncategorized");
+	public static final FigshareCategory SOFTWARE_TESTING = new FigshareCategory(29200L, 29176L, "Software testing, verification and validation");
+	
 	Long id;
+	
 	@JsonProperty("parent_id")
 	Long parentId;
-	String title;	
+	String title;
 }
