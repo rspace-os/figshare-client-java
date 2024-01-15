@@ -18,17 +18,17 @@ import lombok.Singular;
 @NoArgsConstructor
 @Builder()
 public class ArticlePost {
-	
+
 	String title, description;
-	
+
 	private @Singular List<Author> authors;
-	
-	private @Singular List<Integer>categories;
-	//required so that list is never empty
-	private @Builder.Default List<String> tags= new ArrayList<>();
-	
+
+	private @Singular List<Long> categories;
+
+	private @Builder.Default List<String> tags = new ArrayList<>();
+
 	private @Builder.Default List<String> references = new ArrayList<>();
-	
+
 	private Integer license;
 
 }
