@@ -2,11 +2,11 @@ This document record significant changes to the project
 
 ### 0.6.0 2024-01-12
 
+- remove `FigshareCategory.UNCATEGORIZED` static example category, as there is no such category in latest Figshare API.
+  For testing, use newly added `FigshareCategory.SOFTWARE_TESTING`
+- `ArticlePost.categories` property is now a `List<Long>`, rather than `List<Integer>`
+- switch to using parent pom from rspace-os-parent project (which updates many dependencies)
 - compile with java 17
-- switch to using parent pom from rspace-os-parent project
-- remove `FigshareCategory.UNCATEGORIZED` static example category, as there is no such category in latest Figshare API. 
-For testing, use newly added `FigshareCategory.SOFTWARE_TESTING`. 
- 
 
 ### 0.5.0 2022-06-08
 
