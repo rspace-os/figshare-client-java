@@ -24,8 +24,8 @@ public class LoggingResponseErrorHandler extends DefaultResponseErrorHandler {
 	@Override
 	public void handleError(ClientHttpResponse response) throws IOException {
 		log.error("Response error: {} {}", response.getStatusCode(), response.getStatusText());
-		StringBuffer buffer = new StringBuffer();
-		try (InputStream bodyStream = response.getBody();) {
+		StringBuilder buffer = new StringBuilder();
+		try (InputStream bodyStream = response.getBody()) {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(bodyStream));
 			while (reader.ready()) {
 				buffer.append(reader.readLine());

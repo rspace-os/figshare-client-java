@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>figshare-client-java</artifactId>
-    <version>0.6.0</version>
+    <version>0.7.0</version>
     <parent>
         <groupId>com.github.rspace-os</groupId>
-        <artifactId>rspace-os-parent</artifactId>
-        <version>0.1.2</version>
+        <artifactId>rspace-parent</artifactId>
+        <version>2.1.3</version>
     </parent>
 
     <repositories>
@@ -60,18 +60,7 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -87,7 +76,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.7.21</version>
+            <version>${slf4j.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -99,7 +88,4 @@
         </dependency>
     </dependencies>
 
-    <properties>
-        <lombok.version>1.18.22</lombok.version>
-    </properties>
 </project>
