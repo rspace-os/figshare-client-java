@@ -56,35 +56,35 @@ public class FileOperationsImpl implements FileOperations {
 		log.debug(resp.toString());
 		return resp.getBody();		
 	}
-	
+
 	@Override
-	public FileUploadProcess uploadParts(FilePresenter uploadStatus, File dataFile) throws  IOException {
-		URL url  = uploadStatus.getUploadURL();
+	public FileUploadProcess uploadParts(FilePresenter uploadStatus, File dataFile) {
+		URL url = uploadStatus.getUploadURL();
 		FileUploadProcess process = template.getForObject(url.toString(), FileUploadProcess.class);
-		process.getParts().parallelStream().forEach((part)->{
-			 File splitted = null;
+		process.getParts().parallelStream().forEach((part) -> {
+			File splitted = null;
 			try {
 				splitted = splitter.extract(dataFile, part);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.warn("Exception on uploadParts", e);
 			}
-			 String uploadURL = url.toString() +"/"+ part.getPartNo();
-				HttpHeaders headers = new HttpHeaders();
-				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-				byte[] bytes;
-				try {
-					bytes = IOUtils.toByteArray(new FileSystemResource(splitted.getAbsolutePath()).getInputStream());
-					HttpEntity<byte[]> entity = new HttpEntity<>(bytes, headers);
-					ResponseEntity<String> resp = template.exchange(uploadURL, HttpMethod.PUT, entity, 
-							  String.class, uploadStatus.getUploadToken(), part.getPartNo());	
-					log.debug("Uploaded part {}: {}", part.getPartNo(), resp.getBody());	
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}   
-		});	
+			String uploadURL = url + "/" + part.getPartNo();
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+			byte[] bytes;
+			try {
+				bytes = IOUtils.toByteArray(
+						new FileSystemResource(splitted.getAbsolutePath()).getInputStream());
+				HttpEntity<byte[]> entity = new HttpEntity<>(bytes, headers);
+				ResponseEntity<String> resp = template.exchange(uploadURL, HttpMethod.PUT, entity,
+						String.class, uploadStatus.getUploadToken(), part.getPartNo());
+				log.debug("Uploaded part {}: {}", part.getPartNo(), resp.getBody());
+			} catch (Exception e) {
+				log.warn("Exception on uploadParts", e);
+			}
+		});
 		log.debug(process.toString());
-		return process;		
+		return process;
 	}
+
 }

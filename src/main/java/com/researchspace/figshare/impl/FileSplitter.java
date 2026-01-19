@@ -12,7 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import com.researchspace.figshare.model.FilePart;
 
@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FileSplitter {
 
-	File extract(File orig, FilePart part) throws FileNotFoundException, IOException {
+	File extract(File orig, FilePart part) throws IOException {
 		
 		File tmpDir = FileUtils.getTempDirectory();
 		String randomName = RandomStringUtils.randomAlphabetic(10);

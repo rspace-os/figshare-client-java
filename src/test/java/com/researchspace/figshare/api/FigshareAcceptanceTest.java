@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -84,7 +83,7 @@ public class FigshareAcceptanceTest extends AbstractJUnit4SpringContextTests {
     private Figshare setUpDelayExecutingProxy() {
         return (Figshare) Proxy
                 .newProxyInstance(FigshareAcceptanceTest.class.getClassLoader(),
-                        template.getClass().getInterfaces(), new DelayAPIExecutor<Figshare>(template));
+                        template.getClass().getInterfaces(), new DelayAPIExecutor<>(template));
     }
 
     @After
@@ -106,14 +105,14 @@ public class FigshareAcceptanceTest extends AbstractJUnit4SpringContextTests {
             parents.addAll(categories.stream().filter(
                     c -> c.getId().equals(cat.getParentId())).collect(Collectors.toList()));
         });
-        parents.stream().forEach(c -> System.out.println(c));
+        parents.stream().forEach(System.out::println);
     }
 
     @Test
     public void testLicenses() {
         List<FigshareLicense> licenses = templateProxy.getLicenses(false);
         assertTrue(licenses.size() > 5);
-        licenses.stream().forEach(lic -> System.out.println(lic));
+        licenses.stream().forEach(System.out::println);
     }
 
     @Test

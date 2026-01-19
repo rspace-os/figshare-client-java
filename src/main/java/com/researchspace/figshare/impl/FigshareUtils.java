@@ -3,8 +3,9 @@ package com.researchspace.figshare.impl;
 import java.io.IOException;
 import java.util.Arrays;
 
-import org.apache.commons.lang.SerializationUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -13,6 +14,9 @@ import org.springframework.http.ResponseEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class FigshareUtils {
+
+	Logger log = LoggerFactory.getLogger(FigshareUtils.class);
+
 	final String baseURL = "https://api.figshare.com";
 	final String version = "/v2";
 
@@ -44,8 +48,7 @@ public class FigshareUtils {
 			obj = mapper.readValue(resp.getBody(), clazz);
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.warn("IOException on readFromString", e);
 		}
 		return obj;
 	}

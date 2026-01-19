@@ -2,15 +2,13 @@ package com.researchspace.figshare.impl;
 
 import static org.junit.Assert.*;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.stream.IntStream;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -35,7 +33,7 @@ public class FileSplitterTest {
 	}
 
 	@Test
-	public void testSplit() throws FileNotFoundException, IOException {
+	public void testSplit() throws IOException {
 		File toCopy = createByteFile(15);
 		// each sub-part will be length 5
 		FilePart part1 = new FilePart("PENDING", 0L, 4L, false, 1);
@@ -62,7 +60,7 @@ public class FileSplitterTest {
 	}
 
 	@Test
-	public void testExtract() throws FileNotFoundException, IOException {
+	public void testExtract() throws IOException {
 		File toCopy = tempFolder.getRoot().listFiles()[0];
 		FilePart part = new FilePart("PENDING", 0L, toCopy.length(), false, 1);
 		File splitted = splitter.extract(toCopy, part);

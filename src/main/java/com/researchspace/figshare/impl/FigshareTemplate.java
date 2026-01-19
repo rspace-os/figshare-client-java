@@ -153,8 +153,7 @@ public final class FigshareTemplate implements Figshare {
 		try {
 			json = mapper.writeValueAsString(object);
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.warn("JsonProcessingException on marshalling", e);
 		}
 		return json;
 	}
@@ -188,7 +187,7 @@ public final class FigshareTemplate implements Figshare {
 	@Override
 	public List<FilePresenter> getFiles(Long articleId) {
 		String url = utils.createPath("/account/articles/{id}/files");
-		ParameterizedTypeReference<List<FilePresenter>> pt = new ParameterizedTypeReference<List<FilePresenter>>() {
+		ParameterizedTypeReference<List<FilePresenter>> pt = new ParameterizedTypeReference<>() {
 		};
 		ResponseEntity<List<FilePresenter>> resp = getRestTemplate().exchange(url, HttpMethod.GET, createEmptyEntity(), pt,
 				articleId);
@@ -222,8 +221,8 @@ public final class FigshareTemplate implements Figshare {
 			url = utils.createPath("/account/categories");
 		}
 
-		ParameterizedTypeReference<List<FigshareCategory>> pt = new ParameterizedTypeReference<List<FigshareCategory>>() {
-		};
+		ParameterizedTypeReference<List<FigshareCategory>> pt = new ParameterizedTypeReference<>() {
+    };
 		ResponseEntity<List<FigshareCategory>> resp = getRestTemplate().exchange(url, HttpMethod.GET, createEmptyEntity(), pt);
 		List<FigshareCategory> cats = resp.getBody();
 		return cats;
@@ -236,8 +235,8 @@ public final class FigshareTemplate implements Figshare {
 		if(useAccountLicenses) {
 			url = utils.createPath("/account/licenses");
 		}
-		ParameterizedTypeReference<List<FigshareLicense>> pt = new ParameterizedTypeReference<List<FigshareLicense>>() {
-		};
+		ParameterizedTypeReference<List<FigshareLicense>> pt = new ParameterizedTypeReference<>() {
+    };
 		ResponseEntity<List<FigshareLicense>> resp = getRestTemplate().exchange(url, HttpMethod.GET, createEmptyEntity(), pt);
 		List<FigshareLicense> licenses = resp.getBody();
 		//set default license which is CC-BY as of Feb 2017
@@ -253,11 +252,11 @@ public final class FigshareTemplate implements Figshare {
 		ResponseEntity<String> resp = getRestTemplate().postForEntity(url, createEmptyEntity(), String.class, id);
 		if(resp.getStatusCode().is2xxSuccessful()) {
 			Location location = utils.readFromString(resp, Location.class);
-			return new FigshareResponse<Location>( location, null);
+			return new FigshareResponse<>(location, null);
 		} else {			
 			FigshareError error = utils.readFromString(resp, FigshareError.class);
 			error.setStatus(resp.getStatusCode());
-			return new FigshareResponse<Location>( null, error);
+			return new FigshareResponse<>(null, error);
 		}
 	}
 
@@ -273,8 +272,8 @@ public final class FigshareTemplate implements Figshare {
 	@Override
 	public List<PrivateArticle> getPrivateArticleLinks(Long articleId) {
 		String url = utils.createPath("/account/articles/{id}/private_links");
-		ParameterizedTypeReference<List<PrivateArticle>> pt = new ParameterizedTypeReference<List<PrivateArticle>>() {
-		};
+		ParameterizedTypeReference<List<PrivateArticle>> pt = new ParameterizedTypeReference<>() {
+    };
 		ResponseEntity<List<PrivateArticle>> resp = getRestTemplate().exchange(url, HttpMethod.GET, createEmptyEntity(), pt, articleId);
 		log.debug(resp.getBody().toString());
 		return resp.getBody();
