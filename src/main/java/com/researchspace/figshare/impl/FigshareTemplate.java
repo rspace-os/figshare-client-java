@@ -22,6 +22,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
@@ -284,7 +286,7 @@ public final class FigshareTemplate implements Figshare {
 		String url = utils.createPath("/account/articles/{id}/private_links/{private_link_id}");
 		ResponseEntity<String> resp = getRestTemplate().exchange(url,
 				HttpMethod.DELETE, createEmptyEntity(), String.class, articleId, uniqueLinkKey);
-		log.debug(resp.getStatusCode().name());
+		log.debug(resp.getStatusCode().toString());
 	}
 
 	// personal token used for testing and is added to the Authorisation Header.
