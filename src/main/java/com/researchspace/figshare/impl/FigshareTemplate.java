@@ -24,6 +24,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -77,7 +79,8 @@ public final class FigshareTemplate implements Figshare {
 	}
 
 	private void init() {
-		this.restTemplate = new RestTemplate();
+		this.restTemplate = new RestTemplate(
+				new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));
 		configureRestTemplate();
 		this.fileOps = new FileOperationsImpl(restTemplate, accessToken);
 		this.utils = new FigshareUtils();
@@ -96,7 +99,7 @@ public final class FigshareTemplate implements Figshare {
 	public Location createArticle(ArticlePost article) {
 		String url = utils.createPath("/account/articles");
 		String json = marshalObject(article);
-		HttpEntity<String> entity = utils.createHttpEntity(json, accessToken);
+		HttpEntity<String> entity = utils.createJsonHttpEntity(json, accessToken);
 		ResponseEntity<String> resp = getRestTemplate().postForEntity(url, entity, String.class);
 		log.debug(resp.toString());
 		// can't convert directly as content type of returned is text/html?
@@ -108,7 +111,7 @@ public final class FigshareTemplate implements Figshare {
 	public Location createFile(Long articleId, File file) {
 		String url = utils.createPath("/account/articles/{articleId}/files");
 		ObjectNode node = createFileJson(file);
-		HttpEntity<String> entity = utils.createHttpEntity(marshalObject(node), accessToken);
+		HttpEntity<String> entity = utils.createJsonHttpEntity(marshalObject(node), accessToken);
 		ResponseEntity<String> resp = getRestTemplate().postForEntity(url, entity, String.class, articleId);
 		log.debug(resp.toString());
 		// can't convert directly as content type of returned is text/html?

@@ -1,9 +1,8 @@
 package com.researchspace.figshare.impl;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
@@ -24,14 +23,10 @@ public class LoggingResponseErrorHandler extends DefaultResponseErrorHandler {
 	@Override
 	public void handleError(ClientHttpResponse response) throws IOException {
 		log.error("Response error: {} {}", response.getStatusCode(), response.getStatusText());
-		StringBuilder buffer = new StringBuilder();
 		try (InputStream bodyStream = response.getBody()) {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(bodyStream));
-			while (reader.ready()) {
-				buffer.append(reader.readLine());
-			}
+			String body = new String(bodyStream.readAllBytes(), StandardCharsets.UTF_8);
+			log.error(body);
 		}
-		log.error(buffer.toString());
 		// if forbidden we have a bad access token and should throw exception.
 		if(response.getStatusCode().equals(HttpStatus.FORBIDDEN)) {
 			super.handleError(response);
