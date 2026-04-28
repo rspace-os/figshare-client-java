@@ -37,11 +37,28 @@ public class FigshareUtils {
 		
 	}
 
+	/**
+	 * Creates an HttpEntity with Content-Type set to application/json, for use
+	 * with POST/PUT requests that send a JSON body.
+	 */
+	HttpEntity<String> createJsonHttpEntity(String json, String personalToken) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		if (!StringUtils.isEmpty(personalToken)) {
+			addAPIKeyToHeader(headers, personalToken);
+		}
+		return new HttpEntity<>(json, headers);
+	}
+
 	private void addAPIKeyToHeader(HttpHeaders headers, String personalToken) {
 		headers.add("Authorization", " token " + personalToken);
 	}
 	
 	 <T> T readFromString(ResponseEntity<String> resp, Class<T> clazz) {
+		if (resp.getBody() == null) {
+			return null;
+		}
 		ObjectMapper mapper = new ObjectMapper();
 		T obj = null;
 		try {
