@@ -83,9 +83,10 @@ public final class FigshareTemplate implements Figshare {
 				new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));
 		configureRestTemplate();
 		// File operations get a plain (non-buffered) RestTemplate to avoid
-		// duplicating large upload payloads in memory.
+		// duplicating large upload payloads in memory. DefaultResponseErrorHandler
+		// (the default) is used so errors throw proper Spring exceptions without
+		// consuming/closing the response stream.
 		RestTemplate fileRestTemplate = new RestTemplate();
-		fileRestTemplate.setErrorHandler(new LoggingResponseErrorHandler());
 		this.fileOps = new FileOperationsImpl(fileRestTemplate, accessToken);
 		this.utils = new FigshareUtils();
 	}

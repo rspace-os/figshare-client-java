@@ -17,6 +17,7 @@ import java.nio.file.Files;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
@@ -94,7 +95,7 @@ public class FigshareTemplateTest {
     /**
      * 403 Forbidden must propagate as an exception (bad token scenario).
      */
-    @Test(expected = HttpClientErrorException.class)
+    @Test
     public void testCreateArticle_403ResponseThrowsException() {
         mockServer.expect(requestTo(ARTICLE_URL))
                 .andExpect(method(HttpMethod.POST))
@@ -103,7 +104,14 @@ public class FigshareTemplateTest {
                         .body("{\"message\": \"Forbidden\", \"code\": 403}"));
 
         ArticlePost article = ArticlePost.builder().title("Test").build();
-        figshareTemplate.createArticle(article);
+        try {
+            figshareTemplate.createArticle(article);
+            fail("Expected HttpClientErrorException for 403 Forbidden");
+        } catch (HttpClientErrorException e) {
+            assertEquals(HttpStatus.FORBIDDEN, e.getStatusCode());
+        } finally {
+            mockServer.verify();
+        }
     }
 
     /**
