@@ -82,7 +82,11 @@ public final class FigshareTemplate implements Figshare {
 		this.restTemplate = new RestTemplate(
 				new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));
 		configureRestTemplate();
-		this.fileOps = new FileOperationsImpl(restTemplate, accessToken);
+		// File operations get a plain (non-buffered) RestTemplate to avoid
+		// duplicating large upload payloads in memory.
+		RestTemplate fileRestTemplate = new RestTemplate();
+		fileRestTemplate.setErrorHandler(new LoggingResponseErrorHandler());
+		this.fileOps = new FileOperationsImpl(fileRestTemplate, accessToken);
 		this.utils = new FigshareUtils();
 	}
 

@@ -57,7 +57,7 @@ public class FigshareTemplateTest {
     public void testCreateArticle_sendsContentTypeApplicationJson() {
         mockServer.expect(requestTo(ARTICLE_URL))
                 .andExpect(method(HttpMethod.POST))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andRespond(withStatus(HttpStatus.CREATED)
                         .contentType(MediaType.APPLICATION_JSON)
                         .body("{\"location\": \"https://api.figshare.com/v2/account/articles/" + ARTICLE_ID + "\"}"));
@@ -119,7 +119,7 @@ public class FigshareTemplateTest {
         String fileUrl = ARTICLE_URL + "/" + ARTICLE_ID + "/files";
         mockServer.expect(requestTo(fileUrl))
                 .andExpect(method(HttpMethod.POST))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andRespond(withStatus(HttpStatus.CREATED)
                         .contentType(MediaType.APPLICATION_JSON)
                         .body("{\"location\": \"" + BASE_URL + "/account/articles/" + ARTICLE_ID + "/files/" + FILE_ID + "\"}"));
