@@ -1,5 +1,10 @@
 This document record significant changes to the project
 
+## 0.7.1 2026-04-27
+
+- fix `IOException: stream is closed` on POST requests by adding `Content-Type: application/json` header
+- fix response body re-read after error handling by using `BufferingClientHttpRequestFactory` to buffer the body so both `LoggingResponseErrorHandler` and `RestTemplate` can read it safely; limit buffering to metadata calls to avoid duplicating large file uploads in memory
+
 ## 0.7.0 2026-01-19
 
 - update Account model class, following Figshare API changes (Account.active prop type int -> boolean)
