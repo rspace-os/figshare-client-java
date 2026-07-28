@@ -292,7 +292,7 @@ public final class FigshareTemplate implements Figshare {
 		String url = utils.createPath("/account/articles/{id}/private_links/{private_link_id}");
 		ResponseEntity<String> resp = getRestTemplate().exchange(url,
 				HttpMethod.DELETE, createEmptyEntity(), String.class, articleId, uniqueLinkKey);
-		log.debug(resp.getStatusCode().name());
+		log.debug(resp.getStatusCode().toString());
 	}
 
 	// personal token used for testing and is added to the Authorisation Header.

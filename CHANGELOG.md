@@ -1,5 +1,9 @@
 This document record significant changes to the project
 
+## 1.0.0 2026-07-28
+- Spring 6 / Hibernate 6 / Jakarta migration (RSDEV-444)
+- Upgrade to rspace-parent 3.0.0
+
 ## 0.7.1 2026-04-27
 
 - fix `IOException: stream is closed` on POST requests by adding `Content-Type: application/json` header
